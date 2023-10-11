@@ -23,15 +23,6 @@ class EScrape:
         self.url = url
 
     def fetch_json(self):
-        """
-        Fetch JSON data from the specified URL.
-
-        Returns:
-            dict: A dictionary representing the JSON data.
-
-        Raises:
-            ValueError: If there's an issue fetching or parsing the JSON data.
-        """
         try:
             with urllib.request.urlopen(self.url) as response:
                 data = response.read().decode('utf-8')
@@ -44,6 +35,17 @@ class EScrape:
 
         except urllib.error.URLError as e:
             raise ValueError(f"Failed to fetch data from the URL: {str(e)}")
+
+    def save_json_to_file(self, filename, json_data=None):
+        if json_data is None:
+            json_data = self.fetch_json()
+
+        try:
+            with open(filename, 'w') as file:
+                json.dump(json_data, file, indent=4)
+            print(f"JSON data saved to {filename}")
+        except Exception as e:
+            raise ValueError(f"Failed to save JSON data to {filename}: {str(e)}")
 
     def fetch_html(self):
         try:
