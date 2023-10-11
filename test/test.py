@@ -7,7 +7,10 @@ if __name__ == '__main__':
     try:
         # Fetch JSON
         json_data = scraper.fetch_json()
-        print(json_data)
 
+        # Save JSON data to a file
+        scraper.save_json_to_file("PoGo_Shiny.json", json_data)
+
+        # Continue with other operations if needed
     except ValueError as e:
         print(e)
